@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://cd4ffvgbf30v3"]
+
+[ext_resource type="Texture2D" uid="uid://ddw3rlujer04h" path="res://icon.svg" id="1_37lk3"]
+[ext_resource type="Script" path="res://agent.gd" id="1_vu4ai"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_sedh1"]
+vertices = PackedVector2Array(1138, 638, 10, 638, 10, 10, 1138, 10)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 0, 648, 1148, 648, 1148, 0)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_scpop"]
+radius = 32.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_sedh1")
+
+[node name="Walker" type="CharacterBody2D" parent="."]
+position = Vector2(64, 320)
+motion_mode = 1
+script = ExtResource("1_vu4ai")
+movement_target_position = Vector2(1024, 320)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Walker"]
+avoidance_enabled = true
+radius = 32.0
+debug_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Walker"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_37lk3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walker"]
+shape = SubResource("CircleShape2D_scpop")
+
+[node name="Stander" type="CharacterBody2D" parent="."]
+position = Vector2(512, 320)
+motion_mode = 1
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Stander"]
+avoidance_enabled = true
+radius = 32.0
+debug_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Stander"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_37lk3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stander"]
+shape = SubResource("CircleShape2D_scpop")
